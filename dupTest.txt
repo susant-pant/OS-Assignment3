@@ -1,0 +1,24 @@
+Recursive version:
+Comparing /home/ugb/susant.pant/Desktop/Animation and /home/ugb/susant.pant/Desktop/identicalA
+Comparing /home/ugb/susant.pant/Desktop/Animation and /home/ugb/susant.pant/Desktop/identicalB
+Comparing /home/ugb/susant.pant/Desktop/Animation and /home/ugb/susant.pant/Desktop/Modeling
+Comparing /home/ugb/susant.pant/Desktop/Animation and /home/ugb/susant.pant/Desktop/OS
+Comparing /home/ugb/susant.pant/Desktop/Animation and /home/ugb/susant.pant/Desktop/Stuff
+Comparing /home/ugb/susant.pant/Desktop/Animation and /home/ugb/susant.pant/Desktop/sublime_text_3
+Comparing /home/ugb/susant.pant/Desktop/identicalA and /home/ugb/susant.pant/Desktop/identicalB
+These directories are identical.
+
+Comparing /home/ugb/susant.pant/Desktop/identicalA and /home/ugb/susant.pant/Desktop/Modeling
+Comparing /home/ugb/susant.pant/Desktop/identicalA and /home/ugb/susant.pant/Desktop/OS
+Comparing /home/ugb/susant.pant/Desktop/identicalA and /home/ugb/susant.pant/Desktop/Stuff
+Comparing /home/ugb/susant.pant/Desktop/identicalA and /home/ugb/susant.pant/Desktop/sublime_text_3
+Comparing /home/ugb/susant.pant/Desktop/identicalB and /home/ugb/susant.pant/Desktop/Modeling
+Comparing /home/ugb/susant.pant/Desktop/identicalB and /home/ugb/susant.pant/Desktop/OS
+Comparing /home/ugb/susant.pant/Desktop/identicalB and /home/ugb/susant.pant/Desktop/Stuff
+Comparing /home/ugb/susant.pant/Desktop/identicalB and /home/ugb/susant.pant/Desktop/sublime_text_3
+Comparing /home/ugb/susant.pant/Desktop/Modeling and /home/ugb/susant.pant/Desktop/OS
+Comparing /home/ugb/susant.pant/Desktop/Modeling and /home/ugb/susant.pant/Desktop/Stuff
+Comparing /home/ugb/susant.pant/Desktop/Modeling and /home/ugb/susant.pant/Desktop/sublime_text_3
+Comparing /home/ugb/susant.pant/Desktop/OS and /home/ugb/susant.pant/Desktop/Stuff
+Comparing /home/ugb/susant.pant/Desktop/OS and /home/ugb/susant.pant/Desktop/sublime_text_3
+Comparing /home/ugb/susant.pant/Desktop/Stuff and /home/ugb/susant.pant/Desktop/sublime_text_3

@@ -1,0 +1,26 @@
+Normal version (run twice):
+/home/ugb/susant.pant/Desktop is a directory.
+/home/ugb/susant.pant/hello.c is a file.
+
+Recursive version:
+/home/ugb/susant.pant/Desktop/OS/myAsgns/ is a directory.
+/home/ugb/susant.pant/Desktop/OS/myAsgns//A1 is a directory.
+/home/ugb/susant.pant/Desktop/OS/myAsgns//A1/a1.patch is a file.
+/home/ugb/susant.pant/Desktop/OS/myAsgns//A1/a1_written.txt is a file.
+/home/ugb/susant.pant/Desktop/OS/myAsgns//A1/Assignment2_cover_page.pdf is a file.
+/home/ugb/susant.pant/Desktop/OS/myAsgns//A1/assignment_instructions.txt is a file.
+/home/ugb/susant.pant/Desktop/OS/myAsgns//A1/OS a1.pdf is a file.
+/home/ugb/susant.pant/Desktop/OS/myAsgns//A1/progA.cc is a file.
+/home/ugb/susant.pant/Desktop/OS/myAsgns//A1/progB.cc is a file.
+/home/ugb/susant.pant/Desktop/OS/myAsgns//A1/progC.cc is a file.
+/home/ugb/susant.pant/Desktop/OS/myAsgns//A1/test is a directory.
+/home/ugb/susant.pant/Desktop/OS/myAsgns//A3 is a directory.
+/home/ugb/susant.pant/Desktop/OS/myAsgns//A3/containsr.sh is a file.
+/home/ugb/susant.pant/Desktop/OS/myAsgns//A3/contains.sh is a file.
+/home/ugb/susant.pant/Desktop/OS/myAsgns//A3/dircomp.sh is a file.
+/home/ugb/susant.pant/Desktop/OS/myAsgns//A3/dirstatr.sh is a file.
+/home/ugb/susant.pant/Desktop/OS/myAsgns//A3/dirstat.sh is a file.
+/home/ugb/susant.pant/Desktop/OS/myAsgns//A3/dup.sh is a file.
+/home/ugb/susant.pant/Desktop/OS/myAsgns//A3/fodr.sh is a file.
+/home/ugb/susant.pant/Desktop/OS/myAsgns//A3/fod.sh is a file.
+/home/ugb/susant.pant/Desktop/OS/myAsgns//A3/fodTest.txt is a file.

@@ -1,0 +1,6 @@
+Normal version (run twice, the second compare was between "~/Desktop/Animation" and "~/Desktop/Animation/Assignment2/src"):
+/home/ugb/susant.pant/Desktop/Animation contains /home/ugb/susant.pant/Desktop/Animation/Assignment2
+Neither directory contains the other.
+
+Recursive version (compare was between "~/Desktop/Animation" and "~/Desktop/Animation/Assignment2/src"):
+/home/ugb/susant.pant/Desktop/Animation contains /home/ugb/susant.pant/Desktop/Animation/Assignment2/src

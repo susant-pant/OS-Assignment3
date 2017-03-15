@@ -1,0 +1,3 @@
+Normal version:
+/etc has more directories than /tmp
+/etc has more files than /tmp

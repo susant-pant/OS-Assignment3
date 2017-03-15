@@ -1,0 +1,5 @@
+Normal version:
+There are 170 directories and 175 files in /etc.
+
+Recursive version:
+There are 603 directories and 4877 files in /etc.

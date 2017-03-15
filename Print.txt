@@ -1,0 +1,244 @@
+CONTAINS
+# checks if one of the argument directories is a sub-directory of the other
+	dir1=$1
+	dir2=$2
+
+	# iterates through all files and directories in the first directory
+	for filename1 in "$dir1"/*; do
+		if [ -d "$filename1" ]
+		then    if [[ "$dir2" -ef "$filename1" ]]
+		        then echo "$dir1 contains $dir2"; exit 0
+		        fi
+		fi
+	done
+	# iterates through all files and directories in the second directory
+	for filename2 in "$dir2"/*; do
+		if [ -d "$filename2" ]
+		then    if [[ "$dir1" -ef "$filename2" ]]
+		        then echo "$dir2 contains $dir1"; exit 0
+		        fi
+		fi
+	done
+	echo "Neither directory contains the other."
+
+# recursive version of contains.sh
+	dir1=$1
+	dir2=$2
+
+	lines1=$(find "$dir1" -type d -wholename  ""$dir2"" | wc -l)
+	if [ $lines1 -eq 0 ]; then
+		lines2=$(find "$dir2" -type d -wholename  ""$dir1"" | wc -l)
+		if [ $lines2 -eq 0 ]; then
+		        echo "Neither directory contains the other."
+		else echo "$dir2 contains $dir1"
+		fi
+	else echo "$dir1 contains $dir2"
+	fi
+
+# Output for contains.sh and containsr.sh
+# Normal version (run twice, the second compare was between "~/Desktop/Animation" and "~/Desktop/Animation/Assignment2/src"):
+	/home/ugb/susant.pant/Desktop/Animation contains /home/ugb/susant.pant/Desktop/Animation/Assignment2
+	Neither directory contains the other.
+# Recursive version (compare was between "~/Desktop/Animation" and "~/Desktop/Animation/Assignment2/src"):
+	/home/ugb/susant.pant/Desktop/Animation contains /home/ugb/susant.pant/Desktop/Animation/Assignment2/src
+
+DIRCOMP
+# compares the directory and file numbers of two directories
+	dir1=$1
+	numDirs1=0
+	numFiles1=0
+
+	dir2=$2
+	numDirs2=0
+	numFiles2=0
+
+	for filename1 in "$dir1"/*; do
+		if [ -d "$filename1" ]
+		then ((numDirs1++))
+		elif [ -f "$filename1" ]
+		then ((numFiles1++))
+		fi
+	done
+
+	for filename2 in "$dir2"/*; do
+		if [ -d "$filename2" ]
+		then ((numDirs2++))
+		elif [ -f "$filename2" ]
+		then ((numFiles2++))
+		fi
+	done
+
+	if (( numDirs1 > numDirs2 ))
+	then echo "$dir1 has more directories than $dir2"
+	elif [ "$numDirs1" -eq "$numDirs2" ]
+	then echo "$dir1  and $dir2 have an equal number of directories."
+	else echo "$dir2 has more directories than $dir1"
+	fi
+
+	if (( numFiles1 > numFiles2 ))
+	then echo "$dir1 has more files than $dir2"
+	elif [ "$numFiles1" -eq "$numFiles2" ]
+	then echo "$dir1  and $dir2 have an equal number of files."
+	else echo "$dir2 has more files than $dir1"
+	fi
+
+# Output for dircomp.sh
+# Normal version:
+	/etc has more directories than /tmp
+	/etc has more files than /tmp
+
+DIRSTAT
+# counts the number of files and sub-directories in the argument directory
+	argdir=$1
+	numFiles=0
+	numDirs=0
+
+	for filename in "$argdir"/*; do
+		if [ -d "$filename" ]
+		then ((numDirs++))
+		elif [ -f "$filename" ]
+		then ((numFiles++))
+		fi
+	done
+	echo -e "There are $numDirs directories and $numFiles files in $argdir."
+
+# recursive version of dirstat.sh
+	numFiles=0
+	numDirs=0
+
+	countArgs()
+	{
+		argdir=$1
+		for filename in "$argdir"/*; do
+		        if [ -f "$filename" ]
+		                then ((numFiles++))
+		        elif [ -d "$filename" ]
+		                then ((numDirs++))
+		                countArgs "$filename"
+		        fi
+		done
+	}
+	countArgs $1
+	echo -e "There are $numDirs directories and $numFiles files in $1."
+
+# Output for dirstat.sh
+# Normal version:
+	There are 170 directories and 175 files in /etc.
+# Recursive version:
+	There are 603 directories and 4877 files in /etc.
+
+DUP
+# lists all identical sub-directories (recursively) under the current working directory. Note that two directories are identical if they have the same number of files and same names for all the files.
+	argdir=$1
+
+	# code from http://stackoverflow.com/questions/18884992/how-do-i-assign-ls-to-an-array-in-linux-bash
+	# and from http://mywiki.wooledge.org/ParsingLs
+	shopt -s nullglob
+	array=("$argdir"/*)
+	shopt -u nullglob # Turn off nullglob to make sure it doesn't interfere with anything later
+	# end of borrowed code
+
+	arraylength=${#array[@]}
+
+	for (( i=0; i<${arraylength}; i++ ))
+	do
+		if [ -d "${array[i]}" ]
+		then
+		        dir1=${array[i]}
+		        for (( j=$((i+1)); j<${arraylength}; j++ ))
+		        do
+		                if [ -d "${array[j]}" ]
+		                then
+		                        dir2=${array[j]}
+		                        # check to see if correct directories are being compared
+		                        echo -e "Comparing $dir1 and $dir2"
+
+		                        ls1=`cd "$dir1"; ls -R .`
+		                        ls2=`cd "$dir2"; ls -R .`
+		                        if [ "$ls1" == "$ls2" ]
+		                        then echo -e "These directories are identical.\n"
+		                        fi
+		                fi
+		        done
+		fi
+	done
+
+# Output for dup.sh
+# Recursive version:
+	Comparing /home/ugb/susant.pant/Desktop/Animation and /home/ugb/susant.pant/Desktop/identicalA
+	Comparing /home/ugb/susant.pant/Desktop/Animation and /home/ugb/susant.pant/Desktop/identicalB
+	Comparing /home/ugb/susant.pant/Desktop/Animation and /home/ugb/susant.pant/Desktop/Modeling
+	Comparing /home/ugb/susant.pant/Desktop/Animation and /home/ugb/susant.pant/Desktop/OS
+	Comparing /home/ugb/susant.pant/Desktop/Animation and /home/ugb/susant.pant/Desktop/Stuff
+	Comparing /home/ugb/susant.pant/Desktop/Animation and /home/ugb/susant.pant/Desktop/sublime_text_3
+	Comparing /home/ugb/susant.pant/Desktop/identicalA and /home/ugb/susant.pant/Desktop/identicalB
+	These directories are identical.
+
+	Comparing /home/ugb/susant.pant/Desktop/identicalA and /home/ugb/susant.pant/Desktop/Modeling
+	Comparing /home/ugb/susant.pant/Desktop/identicalA and /home/ugb/susant.pant/Desktop/OS
+	Comparing /home/ugb/susant.pant/Desktop/identicalA and /home/ugb/susant.pant/Desktop/Stuff
+	Comparing /home/ugb/susant.pant/Desktop/identicalA and /home/ugb/susant.pant/Desktop/sublime_text_3
+	Comparing /home/ugb/susant.pant/Desktop/identicalB and /home/ugb/susant.pant/Desktop/Modeling
+	Comparing /home/ugb/susant.pant/Desktop/identicalB and /home/ugb/susant.pant/Desktop/OS
+	Comparing /home/ugb/susant.pant/Desktop/identicalB and /home/ugb/susant.pant/Desktop/Stuff
+	Comparing /home/ugb/susant.pant/Desktop/identicalB and /home/ugb/susant.pant/Desktop/sublime_text_3
+	Comparing /home/ugb/susant.pant/Desktop/Modeling and /home/ugb/susant.pant/Desktop/OS
+	Comparing /home/ugb/susant.pant/Desktop/Modeling and /home/ugb/susant.pant/Desktop/Stuff
+	Comparing /home/ugb/susant.pant/Desktop/Modeling and /home/ugb/susant.pant/Desktop/sublime_text_3
+	Comparing /home/ugb/susant.pant/Desktop/OS and /home/ugb/susant.pant/Desktop/Stuff
+	Comparing /home/ugb/susant.pant/Desktop/OS and /home/ugb/susant.pant/Desktop/sublime_text_3
+	Comparing /home/ugb/susant.pant/Desktop/Stuff and /home/ugb/susant.pant/Desktop/sublime_text_3
+
+FOD
+#takes name as input, returns whether name is a file, a directory, or neither
+	name=$1
+
+	if [ -d "$name" ]
+	then echo "$name is a directory."; exit 0
+	elif [ -f "$name" ]
+	then echo "$name is a file."; exit 0
+	else echo -e "The argument is not a file or a directory.\nUsage: fod argument\nargument is the name of a file or directory."; exit 1
+	fi
+
+# recursive implementation of fod.sh
+	name=$1
+
+	if [ -f "$name" ]
+		then echo "$name is a file."; exit 0
+	elif [ -d "$name" ]
+		then echo "$name is a directory."
+		shopt -s nullglob
+		for filename in "$name"/*; do
+		        ./$0 "$filename"
+		done
+	else echo -e "$name is not a file or a directory.\nUsage: fod argument\nargument is the name of a file or directory."; exit 1
+	fi
+
+# Output for fod.sh
+# Normal version (run twice):
+	/home/ugb/susant.pant/Desktop is a directory.
+	/home/ugb/susant.pant/hello.c is a file.
+# Recursive version:
+	/home/ugb/susant.pant/Desktop/OS/myAsgns/ is a directory.
+	/home/ugb/susant.pant/Desktop/OS/myAsgns//A1 is a directory.
+	/home/ugb/susant.pant/Desktop/OS/myAsgns//A1/a1.patch is a file.
+	/home/ugb/susant.pant/Desktop/OS/myAsgns//A1/a1_written.txt is a file.
+	/home/ugb/susant.pant/Desktop/OS/myAsgns//A1/Assignment2_cover_page.pdf is a file.
+	/home/ugb/susant.pant/Desktop/OS/myAsgns//A1/assignment_instructions.txt is a file.
+	/home/ugb/susant.pant/Desktop/OS/myAsgns//A1/OS a1.pdf is a file.
+	/home/ugb/susant.pant/Desktop/OS/myAsgns//A1/progA.cc is a file.
+	/home/ugb/susant.pant/Desktop/OS/myAsgns//A1/progB.cc is a file.
+	/home/ugb/susant.pant/Desktop/OS/myAsgns//A1/progC.cc is a file.
+	/home/ugb/susant.pant/Desktop/OS/myAsgns//A1/test is a directory.
+	/home/ugb/susant.pant/Desktop/OS/myAsgns//A3 is a directory.
+	/home/ugb/susant.pant/Desktop/OS/myAsgns//A3/containsr.sh is a file.
+	/home/ugb/susant.pant/Desktop/OS/myAsgns//A3/contains.sh is a file.
+	/home/ugb/susant.pant/Desktop/OS/myAsgns//A3/dircomp.sh is a file.
+	/home/ugb/susant.pant/Desktop/OS/myAsgns//A3/dirstatr.sh is a file.
+	/home/ugb/susant.pant/Desktop/OS/myAsgns//A3/dirstat.sh is a file.
+	/home/ugb/susant.pant/Desktop/OS/myAsgns//A3/dup.sh is a file.
+	/home/ugb/susant.pant/Desktop/OS/myAsgns//A3/fodr.sh is a file.
+	/home/ugb/susant.pant/Desktop/OS/myAsgns//A3/fod.sh is a file.
+	/home/ugb/susant.pant/Desktop/OS/myAsgns//A3/fodTest.txt is a file.
+
+END
